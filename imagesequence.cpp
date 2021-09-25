@@ -8,7 +8,7 @@
 //
 // 2006-01-19: complete rework. compiled with corona, imglib removed
 // 
-// 2021-09-26: Recreated in VS2019 to build a x64 binary
+// 2021-09-26: Recreated in VS2019 to build a x64 binary (by TomArrow)
 //
 //////////////////////////////////////////////////////////////////////
 
