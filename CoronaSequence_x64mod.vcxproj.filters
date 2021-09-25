@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\avs">
+      <UniqueIdentifier>{d312bbf2-f37d-49a5-89a1-fd673075514f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\corona">
+      <UniqueIdentifier>{800cd2b3-c22c-487a-8fbc-52a0a0c24331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona">
+      <UniqueIdentifier>{1e91a8e0-2f7f-4197-86d4-5f7804a8b044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona\jpeg">
+      <UniqueIdentifier>{22b4159c-7f4f-43eb-91cb-a521cbdb9b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona\libpng">
+      <UniqueIdentifier>{957487c7-d70f-43fe-bb4e-ec400c47a9a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona\libungif">
+      <UniqueIdentifier>{0eb30f0b-3890-4919-9e2f-abc9fc6d0e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona\zlib">
+      <UniqueIdentifier>{9fcb10dc-51d3-4fcf-b8b7-876da0041a0b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="filesearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imagesequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\Convert.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\Corona.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\Debug.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\DefaultFileSystem.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\MemoryFile.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenBMP.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenGIF.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenJPEG.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenPCX.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenPNG.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\OpenTGA.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\SavePNG.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\SaveTGA.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcapimin.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcapistd.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jccoefct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jccolor.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcdctmgr.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jchuff.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcinit.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcmainct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcmarker.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcmaster.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcomapi.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcparam.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcphuff.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcprepct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jcsample.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jctrans.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdapimin.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdapistd.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdatadst.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdatasrc.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdcoefct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdcolor.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jddctmgr.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdhuff.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdinput.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdmainct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdmarker.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdmaster.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdmerge.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdphuff.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdpostct.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdsample.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jdtrans.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jerror.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jfdctflt.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jfdctfst.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jfdctint.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jidctflt.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jidctfst.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jidctint.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jidctred.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jmemmgr.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jmemnobs.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jquant1.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jquant2.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\jpeg-6b\jutils.c">
+      <Filter>Source Files\corona\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\png.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngerror.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pnggccrd.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngget.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngmem.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngpread.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngread.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngrio.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngrtran.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngrutil.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngset.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngtest.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngtrans.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngvcrd.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngwio.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngwrite.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngwtran.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libpng-1.2.1\pngwutil.c">
+      <Filter>Source Files\corona\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libungif-4.1.0\dgif_lib.c">
+      <Filter>Source Files\corona\libungif</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libungif-4.1.0\gif_err.c">
+      <Filter>Source Files\corona\libungif</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\libungif-4.1.0\gifalloc.c">
+      <Filter>Source Files\corona\libungif</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\adler32.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\compress.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\crc32.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\deflate.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\gzio.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\infblock.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\infcodes.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\inffast.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\inflate.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\inftrees.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\infutil.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\trees.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\uncompr.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\zlib-1.1.4\zutil.c">
+      <Filter>Source Files\corona\zlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="filesearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\corona.h">
+      <Filter>Header Files\corona</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
