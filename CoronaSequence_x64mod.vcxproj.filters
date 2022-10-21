@@ -34,6 +34,12 @@
     <Filter Include="Source Files\corona\zlib">
       <UniqueIdentifier>{9fcb10dc-51d3-4fcf-b8b7-876da0041a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\amaze">
+      <UniqueIdentifier>{af7d7139-df24-4b44-b50c-795ddc0e203b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\corona\amaze">
+      <UniqueIdentifier>{dac1c375-e1a3-4756-ae5f-624bc7a6e011}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="filesearch.cpp">
@@ -324,6 +330,12 @@
     <ClCompile Include="corona\zlib-1.1.4\zutil.c">
       <Filter>Source Files\corona\zlib</Filter>
     </ClCompile>
+    <ClCompile Include="corona\OpenDNG.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="amaze\rtengine\amaze_demosaic_RT.cc">
+      <Filter>Header Files\amaze</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filesearch.h">
@@ -331,6 +343,48 @@
     </ClInclude>
     <ClInclude Include="corona\corona.h">
       <Filter>Header Files\corona</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\amaze_demosaic_RT.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\array2D.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\helperavx.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\helpersse2.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\LUT.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\median.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\mytime.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\noncopyable.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\opthelper.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\rt_math.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\sleef.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\sleefsseavx.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="amaze\rtengine\StopWatch.h">
+      <Filter>Header Files\amaze</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

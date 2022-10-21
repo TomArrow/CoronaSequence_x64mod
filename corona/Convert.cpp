@@ -9,7 +9,7 @@
 #include "Debug.h"
 #include "SimpleImage.h"
 #include "Utility.h"
-
+#include <iostream>
 
 namespace corona {
 
@@ -152,7 +152,9 @@ namespace corona {
       // the formats match, don't do any conversion.
       if (!image ||
           target_format == PF_DONTCARE ||
-          target_format == image->getFormat())
+          target_format == image->getFormat() ||
+          (target_format == PF_R8G8B8A8_OR_R16G16B16 && (image->getFormat() == PF_R8G8B8A8 || image->getFormat() == PF_R16G16B16))
+          )
       {
         return image;
       }
@@ -163,6 +165,10 @@ namespace corona {
       // image and then convert that
       if (IsPalettized(image->getFormat())) {
         image = ExpandPalette(image);
+      }
+
+      if (target_format == PF_R8G8B8A8_OR_R16G16B16) {
+          target_format = PF_R8G8B8A8; // If the input format isn't the special 16 bit format, it already can't be 16 bit so we just convert to the desired 8 bit format
       }
 
       return DirectConversion(image, target_format);

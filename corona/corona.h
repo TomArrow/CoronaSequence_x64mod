@@ -73,6 +73,7 @@ namespace corona {
     FF_BMP        = 0x0104,
     FF_TGA        = 0x0105,
     FF_GIF        = 0x0106,
+    FF_DNG        = 0x0107,
   };
 
   /**
@@ -87,6 +88,8 @@ namespace corona {
     PF_I8       = 0x0203,  /**< Palettized, 8-bit indices into palette      */
     PF_B8G8R8A8 = 0x0204,  /**< BGRA, channels have eight bits of precision */
     PF_B8G8R8   = 0x0205,  /**< BGR, channels have eight bits of precision  */
+    PF_R16G16B16= 0x0206,  /**< RGB, channels have sixteen bits of precision (for raw images/dngs) */
+    PF_R8G8B8A8_OR_R16G16B16= 0x0207,  /**< special format used when specifying a desired pixel format. Kinda hacky tbh */
   };
 
   /**

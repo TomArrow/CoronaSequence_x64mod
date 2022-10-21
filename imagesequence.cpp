@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <io.h>
 #include "FCNTL.H"
+#include <iostream>
 
 #define AVS_LINKAGE_DLLIMPORT
 #include "avs/avisynth.h"
@@ -120,6 +121,9 @@ public:
 			};
 			vi.width = pImage->getWidth();
 			vi.height = pImage->getHeight();
+			if (pImage->getFormat() == corona::PF_R16G16B16) {
+				//vi.pixel_type = VideoInfo::CS_BGR48;	// 16 bit raw photos. DNGs for example.
+			}
 			vi.num_frames = fs.GetFilecount();
 			delete pImage;
 		} else {
@@ -238,16 +242,26 @@ public:
 // --> source specific
 			if (strlen(pixel_type)==0) {
 // Corona 
-				pImage = corona::OpenImage(fs.GetFilename(n), corona::PF_B8G8R8A8);
+				pImage = corona::OpenImage(fs.GetFilename(n), corona::PF_R8G8B8A8_OR_R16G16B16);
 				// do nothing if file does not exist or is not readable
 				if (pImage) {
 					if ((pImage->getWidth() != vi.width) || (pImage->getHeight() != vi.height)) {
 						strcpy(error_msg, "All images must have the same size !");
 					} else {
-						pPixels = (byte*)pImage->getPixels();
-						viScanLine = dst->GetPitch();
-						for (int i=0;i<vi.height;i++) {
-							memcpy(pdst + (i*viScanLine), pPixels + (vi.height-i-1)*4*vi.width, 4*vi.width);
+						/*if (pImage->getFormat() == corona::PF_R16G16B16) {
+							// Different handling for 16 bit stuff
+							uint16_t* deepPixels = (uint16_t*)pImage->getPixels();
+							viScanLine = dst->GetPitch();
+							for (int i = 0; i < vi.height; i++) {
+								//memcpy(pdst + (i * viScanLine), deepPixels + (vi.height - i - 1) * 3 * vi.width, 3 * vi.width);
+							}
+						}
+						else */ {
+							pPixels = (byte*)pImage->getPixels();
+							viScanLine = dst->GetPitch();
+							for (int i = 0; i < vi.height; i++) {
+								memcpy(pdst + (i * viScanLine), pPixels + (vi.height - i - 1) * 4 * vi.width, 4 * vi.width);
+							}
 						}
 					}
 					delete pImage;

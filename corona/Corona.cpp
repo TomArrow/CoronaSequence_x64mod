@@ -229,6 +229,9 @@ namespace corona {
       file->seek(0, File::BEGIN);
       switch (file_format) {
         case FF_AUTODETECT: {
+#ifndef NO_DNG
+          TRY_TYPE(FF_DNG);
+#endif
 #ifndef NO_PNG
           TRY_TYPE(FF_PNG);
 #endif
@@ -241,7 +244,10 @@ namespace corona {
           TRY_TYPE(FF_GIF);
           return 0;
         }
-        
+
+#ifndef NO_DNG
+        case FF_DNG:  return OpenDNG(file);
+#endif
 #ifndef NO_PNG
         case FF_PNG:  return OpenPNG(file);
 #endif
@@ -328,6 +334,7 @@ namespace corona {
 
     COR_EXPORT(int) CorGetPixelSize(PixelFormat format) {
       switch (format) {
+        case PF_R16G16B16: return 6;
         case PF_R8G8B8A8: return 4;
         case PF_R8G8B8:   return 3;
         case PF_B8G8R8A8: return 4;

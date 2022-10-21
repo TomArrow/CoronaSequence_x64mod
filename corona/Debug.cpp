@@ -27,7 +27,7 @@ Log::EnsureOpen()
 {
   if (!handle) {
 #ifdef WIN32
-    handle = fopen("C:/corona_debug.log", "w");
+    handle = fopen("C:/tmp/corona_debug.log", "w");
 #else
     std::string home(getenv("HOME"));
     handle = fopen((home + "/corona_debug.log").c_str(), "w");
