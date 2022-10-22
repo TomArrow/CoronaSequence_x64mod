@@ -89,7 +89,7 @@ FileSearch::~FileSearch() {
 	// search for all subdirs in all dirs already in list
 	{
 		_finddata_t fileinfo;
-		long hFile;
+		intptr_t hFile;
 		int act_root = 0;
 
 		while (act_root<dircount) {	//scan all dirs in the list
@@ -123,7 +123,7 @@ FileSearch::~FileSearch() {
 	//searches one directory
 	{
 		_finddata_t fileinfo;
-		long hFile;
+		intptr_t hFile;
 		filedata file;
 
 		// *.htm finds *.html too !!
