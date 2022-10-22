@@ -185,7 +185,7 @@ namespace corona {
 #pragma omp for
 #endif
     for (int y = 0; y < height; y++) {
-        uint16_t* pixelsHere = pixels + y * width;
+        uint16_t* pixelsHere = pixels + y * width *3;
 #ifdef _OPENMP
 #pragma omp simd
 #endif

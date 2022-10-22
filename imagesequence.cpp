@@ -122,7 +122,7 @@ public:
 			vi.width = pImage->getWidth();
 			vi.height = pImage->getHeight();
 			if (pImage->getFormat() == corona::PF_R16G16B16) {
-				//vi.pixel_type = VideoInfo::CS_BGR48;	// 16 bit raw photos. DNGs for example.
+				vi.pixel_type = VideoInfo::CS_BGR48;	// 16 bit raw photos. DNGs for example.
 			}
 			vi.num_frames = fs.GetFilecount();
 			delete pImage;
@@ -179,7 +179,7 @@ public:
 		int ret;
 
 //don't recurse when using Invoke.Subtitle
-		if (level==0) {
+		if (level == 0) {
 			strcpy(message, "");
 			//args[] contains all necessary arguments for calling Subtitle
 			const char* arg_names[9] = {   0,                 0,  "x", "y", "first_frame", "font", "size", "text_color", "halo_color"};
@@ -235,7 +235,7 @@ public:
 
 		dst = env->NewVideoFrame(vi);
 		pdst = dst->GetWritePtr();	//init frame
-		memset(pdst, 0, dst->GetPitch() * dst->GetHeight());
+		//memset(pdst, 0, dst->GetPitch() * dst->GetHeight());
 
 		if (n>=0) {	//else return black frame
 
@@ -248,15 +248,15 @@ public:
 					if ((pImage->getWidth() != vi.width) || (pImage->getHeight() != vi.height)) {
 						strcpy(error_msg, "All images must have the same size !");
 					} else {
-						/*if (pImage->getFormat() == corona::PF_R16G16B16) {
+						if (pImage->getFormat() == corona::PF_R16G16B16) {
 							// Different handling for 16 bit stuff
 							uint16_t* deepPixels = (uint16_t*)pImage->getPixels();
 							viScanLine = dst->GetPitch();
 							for (int i = 0; i < vi.height; i++) {
-								//memcpy(pdst + (i * viScanLine), deepPixels + (vi.height - i - 1) * 3 * vi.width, 3 * vi.width);
+								memcpy(pdst + (i * viScanLine), deepPixels + (vi.height - i - 1) * 3 * vi.width, 6 * vi.width);
 							}
 						}
-						else */ {
+						else {
 							pPixels = (byte*)pImage->getPixels();
 							viScanLine = dst->GetPitch();
 							for (int i = 0; i < vi.height; i++) {
