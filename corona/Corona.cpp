@@ -210,6 +210,8 @@ namespace corona {
       return CorOpenImageFromFile(file.get(), file_format);
     }
 
+
+
     ///////////////////////////////////////////////////////////////////////////
 
     COR_EXPORT(Image*) CorOpenImageFromFile(
@@ -232,6 +234,9 @@ namespace corona {
 #ifndef NO_DNG
           TRY_TYPE(FF_DNG);
 #endif
+#ifndef NO_CRI
+          TRY_TYPE(FF_CRI);
+#endif
 #ifndef NO_PNG
           TRY_TYPE(FF_PNG);
 #endif
@@ -247,6 +252,9 @@ namespace corona {
 
 #ifndef NO_DNG
         case FF_DNG:  return OpenDNG(file);
+#endif
+#ifndef NO_CRI
+        case FF_CRI:  return OpenCRI(file);
 #endif
 #ifndef NO_PNG
         case FF_PNG:  return OpenPNG(file);

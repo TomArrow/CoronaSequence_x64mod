@@ -40,6 +40,9 @@
     <Filter Include="Source Files\corona\amaze">
       <UniqueIdentifier>{dac1c375-e1a3-4756-ae5f-624bc7a6e011}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\corona\dng_sdk">
+      <UniqueIdentifier>{757028a9-a1a1-4c5f-8d98-694bb6b35dc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="filesearch.cpp">
@@ -336,6 +339,168 @@
     <ClCompile Include="amaze\rtengine\amaze_demosaic_RT.cc">
       <Filter>Header Files\amaze</Filter>
     </ClCompile>
+    <ClCompile Include="corona\OpenCRI.cpp">
+      <Filter>Source Files\corona</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_1d_function.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_1d_table.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_abort_sniffer.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_area_task.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_bad_pixels.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_bottlenecks.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_color_space.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_date_time.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_exceptions.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_exif.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_file_stream.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_filter_task.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_fingerprint.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_globals.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_hue_sat_map.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_image.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_info.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_iptc.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_jpeg_memory_source.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_linearization_info.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_local_string.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_lossless_jpeg.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_lossless_jpeg_shared.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_matrix.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_memory.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_memory_stream.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_misc_opcodes.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_mosaic_info.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_mutex.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_opcodes.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_orientation.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_parse_utils.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_pixel_buffer.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_point.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_pthread.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_rational.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_rect.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_ref_counted_block.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_reference.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_resample.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_safe_arithmetic.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_simple_image.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_spline.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_stream.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_string.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_string_list.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_tag_types.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_temperature.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_tile_iterator.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_tone_curve.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_utils.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_validate.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="corona\dng_sdk\source\dng_xy_coord.cpp">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filesearch.h">
@@ -385,6 +550,201 @@
     </ClInclude>
     <ClInclude Include="common.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_1d_function.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_1d_table.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_abort_sniffer.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_area_task.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_assertions.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_auto_ptr.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_bad_pixels.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_bottlenecks.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_classes.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_color_space.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_date_time.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_deprecated_flags.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_errors.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_exceptions.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_exif.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_fast_module.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_file_stream.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_filter_task.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_fingerprint.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_flags.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_globals.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_hue_sat_map.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_image.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_info.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_iptc.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_jpeg_memory_source.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_jpeglib.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_linearization_info.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_local_string.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_lossless_jpeg.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_matrix.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_memory.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_memory_stream.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_misc_opcodes.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_mosaic_info.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_mutex.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_opcodes.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_orientation.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_parse_utils.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_pixel_buffer.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_point.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_pthread.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_rational.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_rect.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_ref_counted_block.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_reference.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_resample.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_safe_arithmetic.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_sdk_limits.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_simd_type.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_simple_image.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_spline.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_stream.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_string.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_string_list.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_codes.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_types.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_values.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_temperature.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_tile_iterator.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_tone_curve.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_types.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_uncopyable.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_utils.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="corona\dng_sdk\source\dng_xy_coord.h">
+      <Filter>Source Files\corona\dng_sdk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

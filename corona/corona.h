@@ -74,6 +74,7 @@ namespace corona {
     FF_TGA        = 0x0105,
     FF_GIF        = 0x0106,
     FF_DNG        = 0x0107,
+    FF_CRI        = 0x0108,
   };
 
   /**

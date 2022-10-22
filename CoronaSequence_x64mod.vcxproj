@@ -32,6 +32,59 @@
     <ClCompile Include="corona\Corona.cpp" />
     <ClCompile Include="corona\Debug.cpp" />
     <ClCompile Include="corona\DefaultFileSystem.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_1d_function.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_1d_table.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_abort_sniffer.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_area_task.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_bad_pixels.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_bottlenecks.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_color_space.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_date_time.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_exceptions.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_exif.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_file_stream.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_filter_task.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_fingerprint.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_globals.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_hue_sat_map.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_image.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_info.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_iptc.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_jpeg_memory_source.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_linearization_info.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_local_string.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_lossless_jpeg.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_lossless_jpeg_shared.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_matrix.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_memory.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_memory_stream.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_misc_opcodes.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_mosaic_info.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_mutex.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_opcodes.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_orientation.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_parse_utils.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_pixel_buffer.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_point.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_pthread.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_rational.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_rect.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_reference.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_ref_counted_block.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_resample.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_safe_arithmetic.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_simple_image.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_spline.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_stream.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_string.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_string_list.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_tag_types.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_temperature.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_tile_iterator.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_tone_curve.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_utils.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_validate.cpp" />
+    <ClCompile Include="corona\dng_sdk\source\dng_xy_coord.cpp" />
     <ClCompile Include="corona\jpeg-6b\jcapimin.c" />
     <ClCompile Include="corona\jpeg-6b\jcapistd.c" />
     <ClCompile Include="corona\jpeg-6b\jccoefct.c" />
@@ -101,6 +154,7 @@
     <ClCompile Include="corona\libungif-4.1.0\gif_err.c" />
     <ClCompile Include="corona\MemoryFile.cpp" />
     <ClCompile Include="corona\OpenBMP.cpp" />
+    <ClCompile Include="corona\OpenCRI.cpp" />
     <ClCompile Include="corona\OpenDNG.cpp" />
     <ClCompile Include="corona\OpenGIF.cpp" />
     <ClCompile Include="corona\OpenJPEG.cpp" />
@@ -142,6 +196,71 @@
     <ClInclude Include="amaze\rtengine\StopWatch.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="corona\corona.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_1d_function.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_1d_table.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_abort_sniffer.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_area_task.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_assertions.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_auto_ptr.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_bad_pixels.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_bottlenecks.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_classes.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_color_space.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_date_time.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_deprecated_flags.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_errors.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_exceptions.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_exif.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_fast_module.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_file_stream.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_filter_task.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_fingerprint.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_flags.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_globals.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_hue_sat_map.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_image.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_info.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_iptc.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_jpeglib.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_jpeg_memory_source.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_linearization_info.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_local_string.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_lossless_jpeg.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_matrix.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_memory.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_memory_stream.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_misc_opcodes.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_mosaic_info.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_mutex.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_opcodes.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_orientation.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_parse_utils.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_pixel_buffer.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_point.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_pthread.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_rational.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_rect.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_reference.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_ref_counted_block.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_resample.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_safe_arithmetic.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_sdk_limits.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_simd_type.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_simple_image.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_spline.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_stream.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_string.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_string_list.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_codes.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_types.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_tag_values.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_temperature.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_tile_iterator.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_tone_curve.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_types.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_uncopyable.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_utils.h" />
+    <ClInclude Include="corona\dng_sdk\source\dng_xy_coord.h" />
     <ClInclude Include="filesearch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -247,7 +366,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;_DEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;_DEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -270,7 +389,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
@@ -303,7 +422,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;WIN32;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
@@ -334,7 +453,7 @@
     <ClCompile>
       <WarningLevel>Level1</WarningLevel>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;_DEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;_DEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
@@ -363,7 +482,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>CORONA_DEBUG;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;CORONA_DEBUG;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
@@ -396,7 +515,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>CORONA_DEBUG;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>qWinOS;CORONA_DEBUG;WIN32;__attribute__(X);ISOLATION_AWARE_ENABLED=1;NDEBUG;CORONASEQUENCEX64MOD_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>Default</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>

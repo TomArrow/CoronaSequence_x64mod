@@ -17,6 +17,9 @@ namespace corona {
 #ifndef NO_DNG
   Image* OpenDNG (File* file); // OpenDNG.cpp
 #endif
+#ifndef NO_CRI
+  Image* OpenCRI (File* file); // OpenCRI.cpp
+#endif
   Image* OpenTGA (File* file); // OpenTGA.cpp
   Image* OpenGIF (File* file); // OpenGIF.cpp
 }
