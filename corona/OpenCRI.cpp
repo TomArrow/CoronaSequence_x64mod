@@ -3,18 +3,18 @@
  *         to use PNG_SETJMP_SUPPORTED in Windows, and don't depend on
  *         png_ptr->jmpbuf in older versions of libpng.
  */
-/*#define NOMINMAX
+#define NOMINMAX
 #include <windows.h>
-#include <iostream>
-#include <fstream>
+ /*#include <iostream>
+#include <fstream>*/
 #include <intrin.h>
-#pragma intrinsic(_ReturnAddress)*/
+#pragma intrinsic(_ReturnAddress)
 
 //#include "RawSpeed-API.h"
 //#include "rawspeedconfig.h"
 
- //#include "amaze/rtengine/array2D.h"
-//#include "amaze/rtengine/amaze_demosaic_RT.h"
+//#include "amaze/rtengine/array2D.h"
+#include "amaze/rtengine/amaze_demosaic_RT.h"
 
 
 #include "Debug.h"
@@ -235,6 +235,51 @@ namespace corona {
         }
     }
 
+    // Bayer color conversion from my nice little array to whatever dcraw expects
+    // Based on rawspeed's toDcrawColor() function
+    static uint32_t toDcrawColorFromNiceLogicalColor(byte c) {
+        switch (c) {
+        //case CFAColor::FUJI_GREEN:
+        //case CFAColor::RED:
+        case 0: // red
+            return 0;
+        //case CFAColor::MAGENTA:
+        //case CFAColor::GREEN:
+        case 1: // Green
+            return 1;
+        //case CFAColor::CYAN:
+        //case CFAColor::BLUE:
+        case 2: // Blue
+            return 2;
+        //case CFAColor::YELLOW:
+        //    return 3;
+       // default:
+         //   throw out_of_range(ColorFilterArray::colorToString(c));
+        }
+    }
+
+    // Bayer conversion from the nice logical array I do to the weird shit dcraw expects
+    // Based on rawspeed's ColorFilterArray::getDcrawFilter() function
+    uint32_t getDcrawFilterFromNiceLogicalArray(byte niceLogicalArray[2][2]) {
+        //dcraw magic
+        //if (size.x == 6 && size.y == 6)
+        //    return 9;
+
+        //if (cfa.empty() || size.x > 2 || size.y > 8 || !isPowerOfTwo(size.y))
+        //    return 1;
+
+        uint32_t ret = 0;
+        for (int x = 0; x < 2; x++) {
+            //for (int y = 0; y < 8; y++) {
+            for (int y = 0; y < 2; y++) {
+                uint32_t c = toDcrawColorFromNiceLogicalColor(niceLogicalArray[x][y]);
+                int g = (x >> 1) * 8;
+                ret |= c << ((x & 1) * 2 + y * 4 + g);
+            }
+        }
+
+        return ret;
+    }
 
 
   
@@ -371,6 +416,14 @@ namespace corona {
 
 
 
+    // Bayer shit
+
+
+
+
+
+
+    byte* rawBayerData = NULL;
 
     if (tagData.find(FrameData) != tagData.end())
     {
@@ -424,6 +477,7 @@ namespace corona {
                     //COR_LOG( va("Source CRI file corrupted! Image info for tile starting at %d completely missing. Ignoring, but output image will be obviously missing that part.", alreadyRead));
                     COR_LOG( "Source CRI file corrupted! Image info for tile completely missing. Ignoring, but output image will be obviously missing that part.");
                     // completely broken. No use messing with this file anymore. 
+                    delete[] tmpBuffer;
                     break;
                 }
                 else
@@ -523,8 +577,9 @@ namespace corona {
             //delete[] decodedOutputBuffer;
             delete[] tileSizes;
 
-            PixelFormat format= PF_R16G16B16;
-            return new SimpleImage(width, height/4, format, decodedOutputBuffer);
+            //PixelFormat format= PF_R16G16B16;
+            rawBayerData = decodedOutputBuffer;
+            //return new SimpleImage(width, height/4, format, decodedOutputBuffer);
 
             //File.WriteAllBytes("decoded raw cri"+width + " "+ height + ".raw", decodedOutputBuffer);
             //return decodedOutputBuffer;
@@ -538,16 +593,18 @@ namespace corona {
                 byte* decodedOutputBuffer = new byte[width * height * 2];
                 std::vector<byte>* srcData = &tagData[FrameData];
                 unpack_10bit(&(*srcData)[0],srcData->size(),(uint16_t*) decodedOutputBuffer, 4,width, height,(ptrdiff_t)width);
-                PixelFormat format = PF_R16G16B16;
-                return new SimpleImage(width, height/4, format, decodedOutputBuffer);
+                //PixelFormat format = PF_R16G16B16;
+                rawBayerData = decodedOutputBuffer;
+                //return new SimpleImage(width, height/4, format, decodedOutputBuffer);
             }
             else {
                 // This is probably wrong and will conversion to 16 bit. Idk.
                 std::vector<byte>* srcData = &tagData[FrameData];
                 byte* srcDataForReturn = new byte[std::max((int)srcData->size(), width * height * 2)]; // Be safe. This will probably need some more fixing anyway, but at least avoid crashes.
                 memcpy(srcDataForReturn,&(*srcData)[0],srcData->size());
-                PixelFormat format = PF_R16G16B16;
-                return new SimpleImage(width, height/4, format, srcDataForReturn);
+                //PixelFormat format = PF_R16G16B16;
+                rawBayerData = srcDataForReturn;
+                //return new SimpleImage(width, height/4, format, srcDataForReturn);
             }
         }
 
@@ -557,64 +614,37 @@ namespace corona {
     else
     {
         COR_LOG("CRI file contains no image data apparently.");
+        return NULL;
     }
 
-    return NULL;
 
-    /*
+
+
+
+    //return NULL;
+
     array2D<float>* red;
     array2D<float>* green;
     array2D<float>* blue;
 
-    //abasc << "before read file" << "\n";
-    //abasc.flush();
-
-    file->seek(0, corona::File::END);
-    uint64_t filesize = file->tell();
-    file->seek(0, corona::File::BEGIN);
-
-    byte* fileContents = new byte[filesize];
-
-    file->read(fileContents, filesize);
-
-    //rawspeed::FileReader reader(path.c_str());
-    const rawspeed::Buffer* map = new rawspeed::Buffer(fileContents,filesize);
-
-    rawspeed::RawParser parser(map);
-    rawspeed::RawDecoder* decoder = parser.getDecoder().release();
-
-    rawspeed::CameraMetaData* metadata = new rawspeed::CameraMetaData();
-
-    //decoder->uncorrectedRawValues = true;
-    decoder->decodeRaw();
-    decoder->decodeMetaData(metadata);
-    rawspeed::RawImage raw = decoder->mRaw;
-
-    delete metadata;
-    delete map;
-    delete[] fileContents;
-
-    int components_per_pixel = raw->getCpp();
-    rawspeed::RawImageType type = raw->getDataType();
-    bool is_cfa = raw->isCFA;
+    //bool is_cfa = true;
 
     int dcraw_filter = 0;
-    if (true == is_cfa) {
-        rawspeed::ColorFilterArray cfa = raw->cfa;
-        dcraw_filter = cfa.getDcrawFilter();
+    //if (true == is_cfa) {
+        //rawspeed::ColorFilterArray cfa = raw->cfa;
+        dcraw_filter = getDcrawFilterFromNiceLogicalArray(bayerPattern);
         //rawspeed::CFAColor c = cfa.getColorAt(0, 0);
-    }
-    abasc << "dcraw filter " << dcraw_filter << "\n";
+    //}
 
-    unsigned char* data = raw->getData(0, 0);
-    int rawwidth = raw->dim.x;
-    int rawheight = raw->dim.y;
-    int pitch_in_bytes = raw->pitch;
+    unsigned char* data = rawBayerData;
+   // int rawwidth = width;
+    //int rawheight = height;
+    int pitch_in_bytes = width*sizeof(uint16_t);
 
-    unsigned int bpp = raw->getBpp();
+    unsigned int bpp = 16;
 
-    int width = rawwidth;
-    int height = rawheight;
+    //int width = rawwidth;
+    //int height = rawheight;
 
 
     uint16_t* dataAs16bit = reinterpret_cast<uint16_t*>(data);
@@ -622,8 +652,8 @@ namespace corona {
     double maxValue = pow(2.0, 16.0) - 1;
     double tmp;
 
-    abasc << "before rawimage" << "\n";
-    abasc.flush();
+    //abasc << "before rawimage" << "\n";
+    //abasc.flush();
 
     rtengine::RawImage* ri = new rtengine::RawImage();
     ri->filters = dcraw_filter;
@@ -649,8 +679,6 @@ namespace corona {
         }
     }
 
-    delete decoder;
-
     rawImageSource->amaze_demosaic_RT(0, 0, width, height, *demosaicSrcData, *red, *green, *blue);
 
     delete ri;
@@ -658,13 +686,13 @@ namespace corona {
     demosaicSrcData->free();
     delete demosaicSrcData;
 
-    abasc << "before deleting" << "\n";
-    abasc.flush();
+    //abasc << "before deleting" << "\n";
+    //abasc.flush();
 
 
 
     uint16_t* pixels = new uint16_t[width * height * 3];  // allocate when we know the format
-    PixelFormat format;
+    //PixelFormat format;
 
 #ifdef _OPENMP
 #pragma omp for
@@ -680,7 +708,16 @@ namespace corona {
             pixelsHere[x * 3 + 2] = (*red)[y][x];
         }
     }
-    */
+
+    red->free();
+    green->free();
+    blue->free();
+    delete red;
+    delete green;
+    delete blue;
+
+    PixelFormat format = PF_R16G16B16;
+    return new SimpleImage(width, height, format, (byte*)pixels);
 
 
 

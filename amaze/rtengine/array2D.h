@@ -50,7 +50,10 @@
  *          my_array(10,10,ARRAY2D_CLEAR_DATA)  ; // resize to 10x10 and clear data
  *
  */
-#pragma once
+//#pragma once
+
+#ifndef __array2D__
+#define __array2D__
 
 #include <cassert>
 #include <cstring>
@@ -284,3 +287,6 @@ public:
         return list[index];
     }
 };
+
+
+#endif
