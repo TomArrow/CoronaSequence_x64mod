@@ -433,6 +433,7 @@ namespace corona {
         if (tagData.find(TileSizes) != tagData.end())
         {
             byte* decodedOutputBuffer = new byte[width * height * 2];
+            rawBayerData = decodedOutputBuffer;
 
             std::vector<byte>* tileSizeData = &tagData[TileSizes];
             int tileCount = tileSizeData->size() / 8; // The tilesizes are saved as Uint64s I think, so dividing by 8 should give the right number.
@@ -578,7 +579,6 @@ namespace corona {
             delete[] tileSizes;
 
             //PixelFormat format= PF_R16G16B16;
-            rawBayerData = decodedOutputBuffer;
             //return new SimpleImage(width, height/4, format, decodedOutputBuffer);
 
             //File.WriteAllBytes("decoded raw cri"+width + " "+ height + ".raw", decodedOutputBuffer);
@@ -618,7 +618,9 @@ namespace corona {
     }
 
 
-
+    if (!rawBayerData) {
+        return NULL;
+    }
 
 
     //return NULL;
@@ -662,9 +664,6 @@ namespace corona {
 
 
     array2D<float>* demosaicSrcData = new array2D<float>(width, height, 0U);
-    red = new array2D<float>(width, height, 0U);
-    green = new array2D<float>(width, height, 0U);
-    blue = new array2D<float>(width, height, 0U);
 
 #ifdef _OPENMP
 #pragma omp for
@@ -678,6 +677,11 @@ namespace corona {
             (*demosaicSrcData)[y][x] = dataAs16bit[y * pitch_in_bytes / 2 + x];
         }
     }
+    delete rawBayerData;
+
+    red = new array2D<float>(width, height, 0U);
+    green = new array2D<float>(width, height, 0U);
+    blue = new array2D<float>(width, height, 0U);
 
     rawImageSource->amaze_demosaic_RT(0, 0, width, height, *demosaicSrcData, *red, *green, *blue);
 
