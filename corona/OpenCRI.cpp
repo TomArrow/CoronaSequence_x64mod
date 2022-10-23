@@ -51,12 +51,12 @@ namespace corona {
         while (currentPosition < length - 3)
         {
 
-            currentTag = *((uint32_t*)(data+currentPosition++));
+            currentTag = *((uint32_t*)(data + currentPosition)); currentPosition +=sizeof(uint32_t);
             if (currentTag == 0)
             {
                 continue;
             }
-            currentTagLength = *((uint32_t*)(data + currentPosition++));
+            currentTagLength = *((uint32_t*)(data + currentPosition)); currentPosition += sizeof(uint32_t);
 
             std::vector<byte> currentTagData(data + currentPosition,data+currentPosition+currentTagLength);
             currentPosition += currentTagLength;
@@ -268,13 +268,13 @@ namespace corona {
     if (tagData.find(FrameInfo) != tagData.end())
     {
         tmpValue = &tagData[FrameInfo];
-        width = *((uint32_t*)&tmpValue[0]);
-        height = *((uint32_t*)&tmpValue[4]);
+        width = *((uint32_t*)&(*tmpValue)[0]);
+        height = *((uint32_t*)&(*tmpValue)[4]);
         //width = (int)BitConverter.ToUInt32(tmpValue, 0);
         //height = (int)BitConverter.ToUInt32(tmpValue, 4);
 
         // Bayer pattern and bit depth.
-        uint32_t colorModel = *((uint32_t*)&tmpValue[8]);
+        uint32_t colorModel = *((uint32_t*)&(*tmpValue)[8]);
         //UInt32 colorModel = BitConverter.ToUInt32(tmpValue, 8);
         switch (colorModel)
         {
@@ -416,7 +416,7 @@ namespace corona {
                 if (alreadyRead + tileSize <= (uint64_t)compressedData->size()) {
 
                     //Array.Copy(compressedData, (int)alreadyRead, tmpBuffer, 0, (int)tileSize);
-                    memcpy(tmpBuffer, &compressedData[0] + alreadyRead, tileSize);
+                    memcpy(tmpBuffer,compressedData->data() + alreadyRead, tileSize);
                 }
                 else if (alreadyRead > ((uint64_t)compressedData->size() - 1)) // See if we can get anything at all out of this...
                 {
@@ -435,7 +435,7 @@ namespace corona {
                     uint64_t amountToCopy = (uint64_t)compressedData->size() - alreadyRead;
                     isDamaged = true;
                     //Array.Copy(compressedData, (int)alreadyRead, tmpBuffer, 0, (int)amountToCopy);
-                    memcpy(tmpBuffer, &compressedData[0] + alreadyRead, amountToCopy);
+                    memcpy(tmpBuffer, compressedData->data() + alreadyRead, amountToCopy);
                 }
 
                 alreadyRead += tileSize;
@@ -499,7 +499,7 @@ namespace corona {
                     
                     //tileBuff = spooler.toByteArray();
                 }*/
-                memcpy(tileBuff, tileBuffTmp, std::min(actualTileBuffSize, tileBuffTmp->size()));
+                memcpy(tileBuff, tileBuffTmp->data(), std::min(actualTileBuffSize, tileBuffTmp->size()));
 
 
                 int actualX;
@@ -545,7 +545,7 @@ namespace corona {
                 // This is probably wrong and will conversion to 16 bit. Idk.
                 std::vector<byte>* srcData = &tagData[FrameData];
                 byte* srcDataForReturn = new byte[std::max((int)srcData->size(), width * height * 2)]; // Be safe. This will probably need some more fixing anyway, but at least avoid crashes.
-                memcpy(srcDataForReturn,&srcData[0],srcData->size());
+                memcpy(srcDataForReturn,&(*srcData)[0],srcData->size());
                 PixelFormat format = PF_R16G16B16;
                 return new SimpleImage(width, height/4, format, srcDataForReturn);
             }

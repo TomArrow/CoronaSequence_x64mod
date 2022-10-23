@@ -88,7 +88,16 @@ namespace corona {
     const rawspeed::Buffer* map = new rawspeed::Buffer(fileContents,filesize);
 
     rawspeed::RawParser parser(map);
-    rawspeed::RawDecoder* decoder = parser.getDecoder().release();
+    rawspeed::RawDecoder* decoder;
+    try {
+
+        decoder = parser.getDecoder().release();
+    }
+    catch (...) {
+        delete map;
+        delete[] fileContents;
+        return NULL;
+    }
 
     rawspeed::CameraMetaData* metadata = new rawspeed::CameraMetaData();
 
