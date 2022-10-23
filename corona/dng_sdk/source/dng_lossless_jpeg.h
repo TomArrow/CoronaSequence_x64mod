@@ -6,6 +6,8 @@
 // accordance with the terms of the Adobe license agreement accompanying it.
 /*****************************************************************************/
 
+// Changes on 2022-10-23: Added DecodeLosslessJPEGMod
+
 /** \file
  * Functions for encoding and decoding lossless JPEG format.
  */
@@ -59,6 +61,15 @@ void EncodeLosslessJPEG (const uint16 *srcData,
 						 int32 srcColStep,
 						 dng_stream &stream);
 
+// Changes on 2022-10-23: Added DecodeLosslessJPEGMod
+template <SIMDType simd>
+void DecodeLosslessJPEGMod (dng_stream& stream,
+						dng_spooler& spooler,
+						uint32 &imageWidth,
+						uint32 &imageHeight,
+						bool bug16,
+						uint64 endOfData);
+						
 /*****************************************************************************/
 
 #endif

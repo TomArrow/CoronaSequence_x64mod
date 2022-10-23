@@ -6,6 +6,8 @@
 // accordance with the terms of the Adobe license agreement accompanying it.
 /*****************************************************************************/
 
+// Changes on 2022-10-23: Added DecodeLosslessJPEGMod
+
 // Lossless JPEG code adapted from:
 
 /* Copyright (C) 1991, 1992, Thomas G. Lane.
@@ -38,6 +40,8 @@
  */
  
 /*****************************************************************************/
+#ifndef __dng_lossless_jpeg_cpp__
+#define __dng_lossless_jpeg_cpp__
 
 #include "dng_lossless_jpeg.h"
 
@@ -4126,4 +4130,72 @@ void EncodeLosslessJPEG (const uint16 *srcData,
 
 	}
 
+
+// 2022-10-23 Mod by TomArrow. This seems more intuitive to me.
+template <SIMDType simd>
+void DecodeLosslessJPEGMod(dng_stream& stream,
+	dng_spooler& spooler,
+	uint32& imageWidth,
+	uint32& imageHeight,
+	bool bug16,
+	uint64 endOfData)
+	{
+
+		dng_lossless_decoder<simd> decoder(&stream,
+			&spooler,
+			bug16);
+
+		//uint32 imageWidth;
+		//uint32 imageHeight;
+		uint32 imageChannels;
+
+		decoder.StartRead(imageWidth,
+			imageHeight,
+			imageChannels);
+
+		uint32 decodedSize = imageWidth *
+			imageHeight *
+			imageChannels *
+			(uint32)sizeof(uint16);
+
+		//if (decodedSize < minDecodedSize ||
+		//	decodedSize > maxDecodedSize)
+		//{
+		//	ThrowBadFormat();
+		//}
+
+		decoder.FinishRead();
+
+		uint64 streamPos = stream.Position();
+
+		if (streamPos > endOfData)
+		{
+
+			bool throwBadFormat = true;
+
+			// Per Hasselblad's request:
+			// If we have a Hassy file with exactly four extra bytes,
+			// let it through; the file is likely still valid.
+
+	#if qSupportHasselblad_3FR
+
+			if (decoder.IsHasselblad3FR() &&
+				streamPos - endOfData == 4)
+			{
+				throwBadFormat = false;
+			}
+
+	#endif
+
+			if (throwBadFormat)
+			{
+				ThrowBadFormat();
+			}
+
+		}
+
+	}
+
 /*****************************************************************************/
+
+#endif

@@ -261,6 +261,7 @@
     <ClInclude Include="corona\dng_sdk\source\dng_uncopyable.h" />
     <ClInclude Include="corona\dng_sdk\source\dng_utils.h" />
     <ClInclude Include="corona\dng_sdk\source\dng_xy_coord.h" />
+    <ClInclude Include="corona\OpenCRI.h" />
     <ClInclude Include="filesearch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

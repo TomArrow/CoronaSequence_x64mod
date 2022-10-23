@@ -746,5 +746,8 @@
     <ClInclude Include="corona\dng_sdk\source\dng_xy_coord.h">
       <Filter>Source Files\corona\dng_sdk</Filter>
     </ClInclude>
+    <ClInclude Include="corona\OpenCRI.h">
+      <Filter>Header Files\corona</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
