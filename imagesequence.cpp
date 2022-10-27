@@ -255,6 +255,7 @@ public:
 							for (int i = 0; i < vi.height; i++) {
 								memcpy(pdst + (i * viScanLine), deepPixels + (vi.height - i - 1) * 3 * vi.width, 6 * vi.width);
 							}
+							//AVSMap* frameProps = &dst->getProperties(); // Maybe add stabilization data here later.
 						}
 						else {
 							pPixels = (byte*)pImage->getPixels();

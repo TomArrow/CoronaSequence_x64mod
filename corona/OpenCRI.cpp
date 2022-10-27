@@ -24,6 +24,7 @@
 #include "OpenCRI.h"
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <stdexcept>
 #include "dng_sdk/source/dng_stream.h"
 #include "dng_sdk/source/dng_lossless_jpeg.h"
@@ -41,14 +42,14 @@ namespace corona {
   
     typedef std::map<uint32_t, std::vector<byte>> criTagData_t;
 
-    static criTagData_t readCRITags(byte* data,int length) {
+    static criTagData_t readCRITags(byte* data,int64_t length) {
         criTagData_t retVal;
 
         uint32_t currentTag;
         uint32_t currentTagLength;
-        uint32_t currentPosition = 0;
+        int64_t currentPosition = 0;
 
-        while (currentPosition < length - 3)
+        while (currentPosition < length - 7)
         {
 
             currentTag = *((uint32_t*)(data + currentPosition)); currentPosition +=sizeof(uint32_t);
@@ -58,7 +59,7 @@ namespace corona {
             }
             currentTagLength = *((uint32_t*)(data + currentPosition)); currentPosition += sizeof(uint32_t);
 
-            std::vector<byte> currentTagData(data + currentPosition,data+currentPosition+currentTagLength);
+            std::vector<byte> currentTagData(data + currentPosition, data + std::min(currentPosition+currentTagLength,length));
             currentPosition += currentTagLength;
             retVal.insert(std::pair<uint32_t,std::vector<byte>>(currentTag, currentTagData));
         }
@@ -272,7 +273,7 @@ namespace corona {
         for (int x = 0; x < 2; x++) {
             //for (int y = 0; y < 8; y++) {
             for (int y = 0; y < 2; y++) {
-                uint32_t c = toDcrawColorFromNiceLogicalColor(niceLogicalArray[x][y]);
+                uint32_t c = toDcrawColorFromNiceLogicalColor(niceLogicalArray[y][x]);
                 int g = (x >> 1) * 8;
                 ret |= c << ((x & 1) * 2 + y * 4 + g);
             }
@@ -424,6 +425,8 @@ namespace corona {
 
 
     byte* rawBayerData = NULL;
+    bool hasStabilizationData = false;
+    float stabilizationX=0.0f, stabilizationY = 0.0f;
 
     if (tagData.find(FrameData) != tagData.end())
     {
@@ -517,7 +520,7 @@ namespace corona {
 
                         // TODO: Replace AVX dynamically using compile time settings
                         //DecodeLosslessJPEG(stream, spooler, ref tileWidth, ref tileHeight, false);
-                        ::DecodeLosslessJPEGMod<(::SIMDType)::AVX>(stream,spooler,tileWidth, tileHeight,false, (uint64)tileSize);
+                        ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream,spooler,tileWidth, tileHeight,false, (uint64)tileSize);
                     }
                     catch (...)
                     {
@@ -530,7 +533,7 @@ namespace corona {
                 {
 
                     //DNGLosslessDecoder.DecodeLosslessJPEGProper(stream, spooler, ref tileWidth, ref tileHeight, false);
-                    ::DecodeLosslessJPEGMod<(::SIMDType)::AVX>(stream, spooler, tileWidth, tileHeight, false, (uint64)tileSize);
+                    ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream, spooler, tileWidth, tileHeight, false, (uint64)tileSize);
                 }
 
 
@@ -622,6 +625,13 @@ namespace corona {
         return NULL;
     }
 
+    if (tagData.find(OffsetToApplyH) != tagData.end() && tagData.find(OffsetToApplyV) != tagData.end())
+    {
+        hasStabilizationData = true;
+        stabilizationX = *(float*)tagData[OffsetToApplyH].data();
+        stabilizationY = *(float*)tagData[OffsetToApplyV].data();
+    }
+
 
     //return NULL;
 
@@ -698,19 +708,59 @@ namespace corona {
     uint16_t* pixels = new uint16_t[width * height * 3];  // allocate when we know the format
     //PixelFormat format;
 
+    bool doStabilize = true;
+    if (hasStabilizationData && doStabilize && (stabilizationX!= 0.0f || stabilizationY!=0.0f)) {
+
 #ifdef _OPENMP
 #pragma omp for
 #endif
-    for (int y = 0; y < height; y++) {
-        uint16_t* pixelsHere = pixels + y * width *3;
+        for (int y = 0; y < height; y++) {
+            uint16_t* pixelsHere = pixels + y * width * 3;
+
+            int yTop = (int)std::floor((float)y + stabilizationY);
+            int yBottom = (int)std::ceil((float)y + stabilizationY);
+            float yFactor = (stabilizationY - std::floor(stabilizationY));
 #ifdef _OPENMP
 #pragma omp simd
 #endif
-        for (int x = 0; x < width; x++) {
-            pixelsHere[x * 3] = (*blue)[y][x];
-            pixelsHere[x * 3 + 1] = (*green)[y][x];
-            pixelsHere[x * 3 + 2] = (*red)[y][x];
+            for (int x = 0; x < width; x++) {
+
+#define SAFEACCESS(a,x,y)  (a)[std::min(std::max((y),0),height-1)][std::min(std::max((x),0),width-1)]
+#define INTERPOLATED(a,xLeft,xRight,yTop,yBottom,xFactor,yFactor) SAFEACCESS(a,xLeft,yTop)*(1.0f-xFactor)*(1.0f-yFactor) + SAFEACCESS(a,xRight,yTop)*(xFactor)*(1.0f-yFactor) + SAFEACCESS(a,xLeft,yBottom)*(1.0f-xFactor)*(yFactor) + SAFEACCESS(a,xRight,yBottom)*(xFactor)*(yFactor)
+                
+                int xLeft = (int)std::floor((float)x + stabilizationX);
+                int xRight = (int)std::ceil((float)x + stabilizationX);
+                float xFactor = (stabilizationX - std::floor(stabilizationX));
+
+
+                pixelsHere[x * 3] = INTERPOLATED(*blue, xLeft, xRight, yTop, yBottom, xFactor, yFactor);
+                pixelsHere[x * 3 + 1] = INTERPOLATED(*green, xLeft, xRight, yTop, yBottom, xFactor, yFactor);
+                pixelsHere[x * 3 + 2] = INTERPOLATED(*red, xLeft, xRight, yTop, yBottom, xFactor, yFactor);
+
+                //pixelsHere[x * 3] = (*blue)[y][x];
+                //pixelsHere[x * 3 + 1] = (*green)[y][x];
+                //pixelsHere[x * 3 + 2] = (*red)[y][x];
+            }
         }
+
+    }
+    else {
+
+#ifdef _OPENMP
+#pragma omp for
+#endif
+        for (int y = 0; y < height; y++) {
+            uint16_t* pixelsHere = pixels + y * width *3;
+#ifdef _OPENMP
+#pragma omp simd
+#endif
+            for (int x = 0; x < width; x++) {
+                pixelsHere[x * 3] = (*blue)[y][x];
+                pixelsHere[x * 3 + 1] = (*green)[y][x];
+                pixelsHere[x * 3 + 2] = (*red)[y][x];
+            }
+        }
+
     }
 
     red->free();
