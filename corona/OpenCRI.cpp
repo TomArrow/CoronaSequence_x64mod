@@ -457,10 +457,19 @@ namespace corona {
             //ReadOnlyMemory<byte> rawTileReadOnlyMemory;
 
             byte* tmpBuffer;
-            uint64_t alreadyRead = 0;
             uint32_t horizOffset = 0;
+#ifdef _OPENMP
+#pragma omp for
+#endif
             for (int tileNum = 0; tileNum < tileCount;tileNum++) {
+                bool cancelled = false;
                 uint64_t tileSize = tileSizes[tileNum];
+
+
+                uint64_t alreadyRead = 0;
+                for (int tileNumPrevious = 0; tileNumPrevious < tileNum; tileNumPrevious++) {
+                    alreadyRead += tileSizes[tileNumPrevious];
+                }
 
             //}
             //for each(uint64_t tileSize in tileSizes)
@@ -481,8 +490,9 @@ namespace corona {
                     //COR_LOG( va("Source CRI file corrupted! Image info for tile starting at %d completely missing. Ignoring, but output image will be obviously missing that part.", alreadyRead));
                     COR_LOG( "Source CRI file corrupted! Image info for tile completely missing. Ignoring, but output image will be obviously missing that part.");
                     // completely broken. No use messing with this file anymore. 
-                    delete[] tmpBuffer;
-                    break;
+                    //delete[] tmpBuffer;
+                    //break;
+                    cancelled = true;
                 }
                 else
                 { // If there's a little bit of stuff, try rescuing what we can.
@@ -496,86 +506,88 @@ namespace corona {
                     memcpy(tmpBuffer, compressedData->data() + alreadyRead, amountToCopy);
                 }
 
-                alreadyRead += tileSize;
+                //alreadyRead += tileSize;
 
-                //rawTileReadOnlyMemory = new ReadOnlyMemory<byte>(tmpBuffer);
-                //jpegLibraryDecoder.SetInput(rawTileReadOnlyMemory);
-                //jpegLibraryDecoder.SetFrameHeader()
-                //jpegLibraryDecoder.Identify(); // fails to identify. missing markers or whatever: Failed to decode JPEG data at offset 91149. No marker found.'
+                if(!cancelled){
+
+                    //rawTileReadOnlyMemory = new ReadOnlyMemory<byte>(tmpBuffer);
+                    //jpegLibraryDecoder.SetInput(rawTileReadOnlyMemory);
+                    //jpegLibraryDecoder.SetFrameHeader()
+                    //jpegLibraryDecoder.Identify(); // fails to identify. missing markers or whatever: Failed to decode JPEG data at offset 91149. No marker found.'
 
 
-                //dng_stream stream = new dng_stream(tmpBuffer);
-                dng_memory_stream_simple stream(tmpBuffer, tileSize);
+                    //dng_stream stream = new dng_stream(tmpBuffer);
+                    dng_memory_stream_simple stream(tmpBuffer, tileSize);
                 
-                //dng_spooler spooler = new dng_spooler();
-                dng_memory_spooler_simple spooler;
+                    //dng_spooler spooler = new dng_spooler();
+                    dng_memory_spooler_simple spooler;
 
-                uint32_t tileWidth = 0, tileHeight = 0;
+                    uint32_t tileWidth = 0, tileHeight = 0;
 
-                if (isDamaged)
-                {
-                    // Be careful if damaged. 
-                    try
+                    if (isDamaged)
+                    {
+                        // Be careful if damaged. 
+                        try
+                        {
+
+                            // TODO: Replace AVX dynamically using compile time settings
+                            //DecodeLosslessJPEG(stream, spooler, ref tileWidth, ref tileHeight, false);
+                            ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream,spooler,tileWidth, tileHeight,false, (uint64)tileSize);
+                        }
+                        catch (...)
+                        {
+                            //COR_LOG("Source CRI file corrupted! A rescue of remaining data was attempted but possibly failed with error: " + e.Message, new byte[0]));
+                            COR_LOG("Source CRI file corrupted! A rescue of remaining data was attempted but possibly failed.");
+
+                        }
+                    }
+                    else
                     {
 
-                        // TODO: Replace AVX dynamically using compile time settings
-                        //DecodeLosslessJPEG(stream, spooler, ref tileWidth, ref tileHeight, false);
-                        ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream,spooler,tileWidth, tileHeight,false, (uint64)tileSize);
+                        //DNGLosslessDecoder.DecodeLosslessJPEGProper(stream, spooler, ref tileWidth, ref tileHeight, false);
+                        ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream, spooler, tileWidth, tileHeight, false, (uint64)tileSize);
                     }
-                    catch (...)
+
+
+
+                    uint32_t tileActualWidth = tileWidth / 2;
+                    uint32_t tileActualHeight = tileHeight * 2;
+                    //byte[] tileBuff = new byte[jpegLibraryDecoder.Width * jpegLibraryDecoder.Height * 2];
+                    uint64_t actualTileBuffSize = tileActualWidth * tileActualHeight * 2;
+                    byte* tileBuff =new byte[actualTileBuffSize];
+                    std::vector<byte>* tileBuffTmp = spooler.getDataVectorPointer();
+
+                    /*if (isDamaged)
                     {
-                        //COR_LOG("Source CRI file corrupted! A rescue of remaining data was attempted but possibly failed with error: " + e.Message, new byte[0]));
-                        COR_LOG("Source CRI file corrupted! A rescue of remaining data was attempted but possibly failed.");
-
+                        tileBuff
+                        //tileBuff = new byte[tileActualWidth * tileActualHeight * 2];
+                        //byte[] tileBuffTmp = spooler.toByteArray();
+                        //Array.Copy(tileBuffTmp, 0, tileBuff, 0, tileBuffTmp.Length);
                     }
-                }
-                else
-                {
-
-                    //DNGLosslessDecoder.DecodeLosslessJPEGProper(stream, spooler, ref tileWidth, ref tileHeight, false);
-                    ::DecodeLosslessJPEGMod<(::SIMDType)::AVX2>(stream, spooler, tileWidth, tileHeight, false, (uint64)tileSize);
-                }
-
-
-
-                uint32_t tileActualWidth = tileWidth / 2;
-                uint32_t tileActualHeight = tileHeight * 2;
-                //byte[] tileBuff = new byte[jpegLibraryDecoder.Width * jpegLibraryDecoder.Height * 2];
-                uint64_t actualTileBuffSize = tileActualWidth * tileActualHeight * 2;
-                byte* tileBuff =new byte[actualTileBuffSize];
-                std::vector<byte>* tileBuffTmp = spooler.getDataVectorPointer();
-
-                /*if (isDamaged)
-                {
-                    tileBuff
-                    //tileBuff = new byte[tileActualWidth * tileActualHeight * 2];
-                    //byte[] tileBuffTmp = spooler.toByteArray();
-                    //Array.Copy(tileBuffTmp, 0, tileBuff, 0, tileBuffTmp.Length);
-                }
-                else
-                {
+                    else
+                    {
                     
-                    //tileBuff = spooler.toByteArray();
-                }*/
-                memcpy(tileBuff, tileBuffTmp->data(), std::min(actualTileBuffSize, tileBuffTmp->size()));
+                        //tileBuff = spooler.toByteArray();
+                    }*/
+                    memcpy(tileBuff, tileBuffTmp->data(), std::min(actualTileBuffSize, tileBuffTmp->size()));
 
 
-                int actualX;
-                for (int y = 0; y < tileActualHeight; y++)
-                {
-                    for (int x = 0; x < tileActualWidth; x++)
+                    int actualX;
+                    for (int y = 0; y < tileActualHeight; y++)
                     {
-                        actualX = (uint32_t)horizOffset + x;
-                        decodedOutputBuffer[y * width * 2 + actualX * 2] = tileBuff[y * tileActualWidth * 2 + (x) * 2];
-                        decodedOutputBuffer[y * width * 2 + actualX * 2 + 1] = tileBuff[y * tileActualWidth * 2 + (x) * 2 + 1];
+                        for (int x = 0; x < tileActualWidth; x++)
+                        {
+                            actualX = (uint32_t)horizOffset + x;
+                            decodedOutputBuffer[y * width * 2 + actualX * 2] = tileBuff[y * tileActualWidth * 2 + (x) * 2];
+                            decodedOutputBuffer[y * width * 2 + actualX * 2 + 1] = tileBuff[y * tileActualWidth * 2 + (x) * 2 + 1];
 
+                        }
                     }
+
+                    horizOffset += (uint32_t)tileActualWidth;
+                    delete[] tileBuff;
                 }
-
-                horizOffset += (uint32_t)tileActualWidth;
-
                 delete[] tmpBuffer;
-                delete[] tileBuff;
             }
 
             //delete[] decodedOutputBuffer;
