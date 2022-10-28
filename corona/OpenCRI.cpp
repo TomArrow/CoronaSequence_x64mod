@@ -625,10 +625,14 @@ namespace corona {
         return NULL;
     }
 
-    if (tagData.find(OffsetToApplyH) != tagData.end() && tagData.find(OffsetToApplyV) != tagData.end())
+    if (tagData.find(OffsetToApplyH) != tagData.end())
     {
         hasStabilizationData = true;
         stabilizationX = *(float*)tagData[OffsetToApplyH].data();
+    }
+    if (tagData.find(OffsetToApplyV) != tagData.end())
+    {
+        hasStabilizationData = true;
         stabilizationY = *(float*)tagData[OffsetToApplyV].data();
     }
 
