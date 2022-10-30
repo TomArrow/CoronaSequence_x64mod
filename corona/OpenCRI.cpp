@@ -679,16 +679,66 @@ namespace corona {
 
     array2D<float>* demosaicSrcData = new array2D<float>(width, height, 0U);
 
+    bool streakCorrection = true;
+    const int streakCorrectionPushup = 20;
+    const int pixelCountForMedian = 13;//13;
+    const int rowCountForMedian = 5;
+    const int extraRowCount = rowCountForMedian / 2;
+    if (streakCorrection) {
+
+        // Find start of image data from left. Cintel images have basically pure black around the image. It might be a fixed amount but I'm not sure so just search for it.
+        size_t pixelsFromStart = width; // Nonsense start value which we will always std::min on
+        for (int y = 0; y < height; y++) { // Go through all rows
+            size_t x = 0;
+            for (; x < width; x++) {
+                if (dataAs16bit[y * pitch_in_bytes / 2 + x] != 0) break; // First pixel that is not pure black breaks the cycle
+            }
+            pixelsFromStart = std::min(pixelsFromStart,x);
+        }
+
+        // Ok now go through the first 13 pixels of each row and make a median of them
 #ifdef _OPENMP
 #pragma omp for
 #endif
-    for (int y = 0; y < height; y++) {
+        for (int y = 0; y < height; y++) { // Go through all rows
+            uint16_t medianValue = 0;
+
+            if (pixelsFromStart+ pixelCountForMedian < width) { // Should always be true but let's be safe.
+                
+                int startRow = std::max(0, y- extraRowCount);
+                int endRow = std::min(height-1, y + extraRowCount);
+                int totalMedianCount = pixelCountForMedian * (endRow - startRow + 1);
+                uint16_t* pixelsForMedian = new uint16_t[totalMedianCount];
+                size_t medianAbsoluteIndex = 0;
+                for (int subY = startRow; subY <= endRow; subY++) {
+                    for (int medianIndex = 0; medianIndex < pixelCountForMedian; medianIndex++) {
+                        pixelsForMedian[medianAbsoluteIndex++] = dataAs16bit[subY * pitch_in_bytes / 2 + (pixelsFromStart + medianIndex)];
+                    }
+                }
+                std::sort(pixelsForMedian, pixelsForMedian + totalMedianCount);
+                medianValue = pixelsForMedian[totalMedianCount/2];
+                delete[] pixelsForMedian;
+            }
+            
+            for (size_t x = 0; x < width; x++) {
+                //tmp = ;// maxValue;
+                (*demosaicSrcData)[y][x] = (float)(dataAs16bit[y * pitch_in_bytes / 2 + x]) + (float)streakCorrectionPushup - (float)medianValue;// +(float)streakCorrectionPushup;
+            }
+        }
+    }
+    else {
+
+#ifdef _OPENMP
+#pragma omp for
+#endif
+        for (int y = 0; y < height; y++) {
 #ifdef _OPENMP
 #pragma omp simd
 #endif
-        for (size_t x = 0; x < width; x++) {
-            //tmp = ;// maxValue;
-            (*demosaicSrcData)[y][x] = dataAs16bit[y * pitch_in_bytes / 2 + x];
+            for (size_t x = 0; x < width; x++) {
+                //tmp = ;// maxValue;
+                (*demosaicSrcData)[y][x] = dataAs16bit[y * pitch_in_bytes / 2 + x];
+            }
         }
     }
     delete rawBayerData;
