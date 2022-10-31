@@ -299,6 +299,19 @@ namespace corona {
       double divisor;
   };
 
+  template<typename T>
+  T* getPrecalculatedGaussianValues(const T& o,const int &maxValue) {
+      static std::map<T, std::vector<T>> preCalculatedWeightMap;
+      if (preCalculatedWeightMap[o].size() < maxValue+1) {
+          int newCalcStartValue = preCalculatedWeightMap[o].size();
+          preCalculatedWeightMap[o].resize(maxValue+1);
+          for (int i = newCalcStartValue; i <= maxValue; i++) {
+              preCalculatedWeightMap[o][i] = gauss<T>(o,(T)i);
+          }
+      }
+      return preCalculatedWeightMap[o].data();
+  }
+
   //////////////////////////////////////////////////////////////////////////////
 
   Image* OpenCRI(File* file) {
@@ -695,7 +708,7 @@ namespace corona {
 
     bool streakCorrection = true;
     bool streakCorrectionSmoothed = true;
-    const float streakCorrectionSmoothGaussO = 40.0f;
+    const float streakCorrectionSmoothGaussO = 80.0f;
     const int streakCorrectionPushup = 20;
     const int pixelCountForMedian = 13;//13;
     const int rowCountForMedian = 1;
@@ -742,6 +755,7 @@ namespace corona {
 
         // Apply gauss smoothing to median values
         if (streakCorrectionSmoothed) {
+            float* gaussTable = getPrecalculatedGaussianValues<float>(streakCorrectionSmoothGaussO,height);
             averageHelper_t* gaussSummers = new averageHelper_t[height];
             memset(gaussSummers, 0, sizeof(averageHelper_t)* height);
 #ifdef _OPENMP
@@ -749,7 +763,8 @@ namespace corona {
 #endif
             for (int y = 0; y < height; y++) { // Go through all rows
                 for (int y2 = 0; y2 < height; y2++) { // Go through all rows
-                    float gaussValue = gauss<float>(streakCorrectionSmoothGaussO, (float)y - (float)y2);
+                    //float gaussValue = gauss<float>(streakCorrectionSmoothGaussO, (float)y - (float)y2);
+                    float gaussValue = gaussTable[std::abs(y - y2)];
                     gaussSummers[y].sum += medianValues[y2] * gaussValue;
                     gaussSummers[y].divisor += gaussValue;
                 }
