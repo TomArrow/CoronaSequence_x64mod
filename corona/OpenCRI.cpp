@@ -13,6 +13,9 @@
 //#include "RawSpeed-API.h"
 //#include "rawspeedconfig.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 //#include "amaze/rtengine/array2D.h"
 #include "amaze/rtengine/amaze_demosaic_RT.h"
 
@@ -282,8 +285,19 @@ namespace corona {
         return ret;
     }
 
+  template<typename T>
+  inline T gauss(const T &o, const T &x) {
+      if constexpr (std::is_same<float,T>()) {
+          return (1.0f / std::sqrtf(2.0f * M_PI * o)) * std::powf(M_E, -(x * x) / (2.0f * o * o));
+      } else if constexpr (std::is_same<double,T>()) {
+          return (1.0 / std::sqrt(2.0 * M_PI * o)) * std::pow(M_E, -(x * x) / (2.0 * o * o));
+      }
+  }
 
-  
+  typedef struct averageHelper_t {
+      double sum;
+      double divisor;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
 
@@ -680,9 +694,11 @@ namespace corona {
     array2D<float>* demosaicSrcData = new array2D<float>(width, height, 0U);
 
     bool streakCorrection = true;
+    bool streakCorrectionSmoothed = true;
+    const float streakCorrectionSmoothGaussO = 40.0f;
     const int streakCorrectionPushup = 20;
     const int pixelCountForMedian = 13;//13;
-    const int rowCountForMedian = 5;
+    const int rowCountForMedian = 1;
     const int extraRowCount = rowCountForMedian / 2;
     if (streakCorrection) {
 
@@ -695,6 +711,8 @@ namespace corona {
             }
             pixelsFromStart = std::min(pixelsFromStart,x);
         }
+
+        float* medianValues = new float[height];
 
         // Ok now go through the first 13 pixels of each row and make a median of them
 #ifdef _OPENMP
@@ -716,15 +734,45 @@ namespace corona {
                     }
                 }
                 std::sort(pixelsForMedian, pixelsForMedian + totalMedianCount);
-                medianValue = pixelsForMedian[totalMedianCount/2];
+                medianValues[y] = (float)pixelsForMedian[totalMedianCount/2];
                 delete[] pixelsForMedian;
             }
             
+        }
+
+        // Apply gauss smoothing to median values
+        if (streakCorrectionSmoothed) {
+            averageHelper_t* gaussSummers = new averageHelper_t[height];
+            memset(gaussSummers, 0, sizeof(averageHelper_t)* height);
+#ifdef _OPENMP
+#pragma omp for
+#endif
+            for (int y = 0; y < height; y++) { // Go through all rows
+                for (int y2 = 0; y2 < height; y2++) { // Go through all rows
+                    float gaussValue = gauss<float>(streakCorrectionSmoothGaussO, (float)y - (float)y2);
+                    gaussSummers[y].sum += medianValues[y2] * gaussValue;
+                    gaussSummers[y].divisor += gaussValue;
+                }
+            }
+            for (int y = 0; y < height; y++) { // Go through all rows
+                medianValues[y] = gaussSummers[y].sum / gaussSummers[y].divisor;
+            }
+            delete[] gaussSummers;
+        }
+
+
+#ifdef _OPENMP
+#pragma omp for
+#endif
+        for (int y = 0; y < height; y++) { // Go through all rows
+
             for (size_t x = 0; x < width; x++) {
                 //tmp = ;// maxValue;
-                (*demosaicSrcData)[y][x] = (float)(dataAs16bit[y * pitch_in_bytes / 2 + x]) + (float)streakCorrectionPushup - (float)medianValue;// +(float)streakCorrectionPushup;
+                (*demosaicSrcData)[y][x] = (float)(dataAs16bit[y * pitch_in_bytes / 2 + x]) + (float)streakCorrectionPushup - medianValues[y];// +(float)streakCorrectionPushup;
             }
         }
+
+        delete[] medianValues;
     }
     else {
 
